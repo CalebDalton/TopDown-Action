@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Props
+  - Playable
   - 
   - 
   - 
@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Props
+  - name: Playable
     uniqueID: 4762417
     locked: 0

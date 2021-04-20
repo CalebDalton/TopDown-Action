@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
@@ -34,6 +34,6 @@ public class PlayerMovement : MonoBehaviour
         if (vectorCheck.sqrMagnitude > 1)
             vectorCheck.Normalize();
         var correctedMvmt = vectorCheck * playerSpeed * Time.deltaTime;
-        transform.Translate(correctedMvmt);
+        myRigidBody.MovePosition(correctedMvmt + transform.position);
     }
 }
