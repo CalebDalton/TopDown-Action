@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
@@ -30,9 +30,11 @@ public class PlayerMovement : MonoBehaviour
     void MoveCharacter()
     {
         var vectorCheck = new Vector3(change.x, change.y);
-        //Checks to make sure movement isn't greater than 1.0, especially diagonal movement
+        //Checks to make sure movement isn't greater than 1.0, normalizes diagonal movement
         if (vectorCheck.sqrMagnitude > 1)
             vectorCheck.Normalize();
+
+        Debug.Log("vectorCheck: " + vectorCheck);
         var correctedMvmt = vectorCheck * playerSpeed * Time.deltaTime;
         myRigidBody.MovePosition(correctedMvmt + transform.position);
     }
