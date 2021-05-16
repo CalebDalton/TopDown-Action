@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject virtualCamera;
+    
 
     private void Start()
     {
-        virtualCamera.SetActive(false);
+        
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !collision.isTrigger) 
         {
-            virtualCamera.SetActive(true);
+            
         }
     }
 
@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !collision.isTrigger)
         {
-            virtualCamera.SetActive(false);
+            
         }
     }
 }
