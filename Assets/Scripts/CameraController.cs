@@ -6,10 +6,9 @@ public class CameraController : MonoBehaviour
 {
     public GameObject virtualCamera;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        virtualCamera.SetActive(false);
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
