@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float playerSpeed;
-    private Rigidbody2D myRigidBody;
+    public Rigidbody2D playerRigidBody;
     private Vector3 change;
 
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
+        playerRigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -36,6 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log("vectorCheck: " + vectorCheck);
         var correctedMvmt = vectorCheck * playerSpeed * Time.deltaTime;
-        myRigidBody.MovePosition(correctedMvmt + transform.position);
+        playerRigidBody.MovePosition(correctedMvmt + transform.position);
     }
 }

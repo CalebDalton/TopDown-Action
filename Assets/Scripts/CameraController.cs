@@ -4,26 +4,66 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    
+    public Vector3 camPos;
+    public Vector3 newCamPos;
 
-    private void Start()
+    void Start()
+    {
+        camPos = transform.position;
+    }
+
+    void FixedUpdate()
     {
         
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !collision.isTrigger) 
+        if (collision.CompareTag("LeftDoorCollider")) 
+        {
+            newCamPos = Camera.main.transform.position += new Vector3(-53, 0, 0);
+        }
+
+        if (collision.CompareTag("RightDoorCollider"))
+        {
+            newCamPos = Camera.main.transform.position += new Vector3(53, 0, 0);
+        }
+
+        if (collision.CompareTag("TopDoorCollider"))
+        {
+            newCamPos = Camera.main.transform.position += new Vector3(0, 32, 0);
+        }
+
+        if (collision.CompareTag("BottomDoorCollider"))
+        {
+            newCamPos = Camera.main.transform.position += new Vector3(0, -32, 0);
+        }
+        
+        StartCoroutine(MoveCamera(newCamPos));
+    }
+
+    public virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("LeftDoorCollider"))
         {
             
         }
     }
 
-    public virtual void OnTriggerExit2D(Collider2D collision)
+    IEnumerator MoveCamera(Vector3 newCamPos)
     {
-        if (collision.CompareTag("Player") && !collision.isTrigger)
+        float current = 0;
+        float duration = 0.5f;
+        float lerpValue = 0;
+
+        while (current < duration)
         {
-            
+            lerpValue = Mathf.InverseLerp(0, duration, current);
+            Camera.main.transform.position = Vector3.Lerp(camPos, newCamPos, lerpValue);
+            current += Time.deltaTime;
+            yield return 0;
         }
+        
+        
     }
 }
