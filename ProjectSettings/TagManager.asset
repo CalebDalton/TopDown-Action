@@ -8,6 +8,12 @@ TagManager:
   - BottomDoorCollider
   - LeftDoorCollider
   - RightDoorCollider
+  - DeathPit
+  - Enemy
+  - PlayerSlashLeft
+  - PlayerSlashRight
+  - PlayerSlashUp
+  - PlayerSlashDown
   layers:
   - Default
   - TransparentFX

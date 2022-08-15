@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -7,6 +6,7 @@ public class CameraController : MonoBehaviour
     public Vector3 camPos;
     public Vector3 newCamPos;
     Rigidbody2D rb;
+    public Vector3 PlayerDeathResetPosition;
 
     void Start()
     {
@@ -14,13 +14,14 @@ public class CameraController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)      //Moves camera exact pixels based on which collider is hit
     {
 
         if (collision.CompareTag("LeftDoorCollider")) 
         {
             newCamPos = Camera.main.transform.position += new Vector3(-53, 0, 0);
             rb.transform.position += new Vector3(-8.5f, 0, 0);
+            PlayerDeathResetPosition = rb.transform.position;
             StartCoroutine(MoveCamera(newCamPos));
         }
 
@@ -28,6 +29,7 @@ public class CameraController : MonoBehaviour
         {
             newCamPos = Camera.main.transform.position += new Vector3(53, 0, 0);
             rb.transform.position += new Vector3(8.5f, 0, 0);
+            PlayerDeathResetPosition = rb.transform.position;
             StartCoroutine(MoveCamera(newCamPos));
         }
 
@@ -35,6 +37,7 @@ public class CameraController : MonoBehaviour
         {
             newCamPos = Camera.main.transform.position += new Vector3(0, 32, 0);
             rb.transform.position += new Vector3(0, 8.5f, 0);
+            PlayerDeathResetPosition = rb.transform.position;
             StartCoroutine(MoveCamera(newCamPos));
         }
 
@@ -42,9 +45,10 @@ public class CameraController : MonoBehaviour
         {
             newCamPos = Camera.main.transform.position += new Vector3(0, -32, 0);
             rb.transform.position += new Vector3(0, -8.5f, 0);
+            PlayerDeathResetPosition = rb.transform.position;
             StartCoroutine(MoveCamera(newCamPos));
         }
-        
+
     }
 
     IEnumerator MoveCamera(Vector3 newCamPos)
@@ -53,7 +57,7 @@ public class CameraController : MonoBehaviour
         float duration = 0.75f;
 
         GetComponent<PlayerMovement>().enabled = false;
-        while (current < duration)
+        while (current < duration)          //Use Lerp to smoothly move camera positions
         {
             float lerpValue = Mathf.InverseLerp(0, duration, current);
             Camera.main.transform.position = Vector3.Lerp(camPos, newCamPos, lerpValue);
